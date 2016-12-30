@@ -4,8 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BugModule } from './bugs/bug.module';
 import { AppRoutingModule } from './app-routing.module';
 
+// Component
 import { AppComponent } from './app.component';
-
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 @NgModule({
@@ -13,7 +14,10 @@ import { AppComponent } from './app.component';
             BugModule,
             AppRoutingModule
             ],
-    declarations: [ AppComponent ],
+    declarations: [ 
+        AppComponent,
+        NavbarComponent
+         ],
     bootstrap: [ AppComponent ]
 })
 
