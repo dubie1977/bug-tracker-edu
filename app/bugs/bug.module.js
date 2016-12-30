@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 //Modules
 var core_1 = require('@angular/core');
 var shared_module_1 = require('../shared/shared.module');
+var bug_routing_module_1 = require('./bug-routing.module');
 //Component
 var bug_list_component_1 = require('./bug-list/bug-list.component');
 var BugModule = (function () {
@@ -18,8 +19,13 @@ var BugModule = (function () {
     }
     BugModule = __decorate([
         core_1.NgModule({
-            imports: [shared_module_1.SharedModule],
-            declarations: [bug_list_component_1.BugListComponent],
+            imports: [
+                shared_module_1.SharedModule,
+                bug_routing_module_1.BugRoutingModule
+            ],
+            declarations: [
+                bug_list_component_1.BugListComponent
+            ],
             exports: [],
             providers: []
         }), 

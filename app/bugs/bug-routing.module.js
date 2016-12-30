@@ -8,27 +8,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-//Modules
 var core_1 = require('@angular/core');
-var platform_browser_1 = require('@angular/platform-browser');
-var bug_module_1 = require('./bugs/bug.module');
-var app_routing_module_1 = require('./app-routing.module');
-var app_component_1 = require('./app.component');
-var AppModule = (function () {
-    function AppModule() {
+var router_1 = require('@angular/router');
+var bug_list_component_1 = require('./bug-list/bug-list.component');
+var BugRoutingModule = (function () {
+    function BugRoutingModule() {
     }
-    AppModule = __decorate([
+    BugRoutingModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule,
-                bug_module_1.BugModule,
-                app_routing_module_1.AppRoutingModule
+            imports: [
+                router_1.RouterModule.forChild([
+                    //{ path: '', redirectTo: 'bugs', pathMatch: 'full'},
+                    { path: 'bugs', component: bug_list_component_1.BugListComponent }
+                ])
             ],
-            declarations: [app_component_1.AppComponent],
-            bootstrap: [app_component_1.AppComponent]
+            exports: [router_1.RouterModule]
         }), 
         __metadata('design:paramtypes', [])
-    ], AppModule);
-    return AppModule;
+    ], BugRoutingModule);
+    return BugRoutingModule;
 }());
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+exports.BugRoutingModule = BugRoutingModule;
+//# sourceMappingURL=bug-routing.module.js.map
