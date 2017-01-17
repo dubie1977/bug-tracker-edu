@@ -24,4 +24,8 @@ export class BugDetailComponent implements OnInit {
         });
     }
 
+    submitForm(){
+        console.log(this.bugForm);
+    }
+
 }

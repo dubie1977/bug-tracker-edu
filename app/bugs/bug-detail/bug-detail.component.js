@@ -25,6 +25,9 @@ var BugDetailComponent = (function () {
             description: new forms_1.FormControl()
         });
     };
+    BugDetailComponent.prototype.submitForm = function () {
+        console.log(this.bugForm);
+    };
     BugDetailComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
