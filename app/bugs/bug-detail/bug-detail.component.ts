@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
+import { forbiddenStringValidator } from '../../shared/validation/forbidden-string.validator';
 
 @Component({
     moduleId: module.id,
@@ -17,10 +19,11 @@ export class BugDetailComponent implements OnInit {
 
     configureForm(){
         this.bugForm = new FormGroup({
-            title: new FormControl(),
-            status: new FormControl(1),
-            severity: new FormControl(1),
-            description: new FormControl()
+            // /puppy/i creates a regExp for string puppy anywhere ignoring case.
+            title: new FormControl(null, [Validators.required, forbiddenStringValidator(/puppy/i) ] ),
+            status: new FormControl(1, Validators.required),
+            severity: new FormControl(1, Validators.required),
+            description: new FormControl(null, Validators.required)
         });
     }
 

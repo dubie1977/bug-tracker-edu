@@ -1,5 +1,5 @@
 .modal-content{
-    border-radus: 0;
+    border-radius: 0;
 }
 .modal-body {
     padding: 2.5rem 5rem;
@@ -28,4 +28,15 @@
     border: none;
     text-align: center;
     padding-bottom: 4rem;
+}
+
+/* Validation */
+textarea.ng-invalid.ng-dirty{
+    border-color: #C62828;
+    transition: border-color 0.2s ease;
+}
+#title-field.ng-invalid.ng-dirty{
+    border-left: 5px solid #C62828;
+    padding-left: 5px;
+    transition: border-width 0.2s ease;
 }
