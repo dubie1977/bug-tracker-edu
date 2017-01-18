@@ -28,14 +28,14 @@ export class BugService{
     addBug(bug: Bug){
         const newBugRef = this.bugsDbRef.push();
         newBugRef.set({
-            title: bug.titel,
+            title: bug.title,
             status: bug.status,
             severity: bug.severity,
             description: bug.description,
             createdBy: 'tempUser',
             createDate: Date.now()
-        },
-            err => console.error("Unable to add bug to Firebase - ", err)
-        );
+        })
+        .catch(err => console.error("Unable to add bug to Firebase - ", err));
+        console.log(bug.description+" service");
     }
 }

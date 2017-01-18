@@ -1,8 +1,8 @@
 "use strict";
 var Bug = (function () {
-    function Bug(id, titel, status, severity, description, createdBy, createdDate, updatedBy, updatedDate) {
+    function Bug(id, title, status, severity, description, createdBy, createdDate, updatedBy, updatedDate) {
         this.id = id;
-        this.titel = titel;
+        this.title = title;
         this.status = status;
         this.severity = severity;
         this.description = description;

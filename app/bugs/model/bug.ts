@@ -1,7 +1,7 @@
 export class Bug{
     constructor(
         public id: string,
-        public titel: string,
+        public title: string,
         public status: number,
         public severity: number,
         public description: string,
