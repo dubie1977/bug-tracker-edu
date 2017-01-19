@@ -36,6 +36,5 @@ export class BugService{
             createDate: Date.now()
         })
         .catch(err => console.error("Unable to add bug to Firebase - ", err));
-        console.log(bug.description+" service");
     }
 }

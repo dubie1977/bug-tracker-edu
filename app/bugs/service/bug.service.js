@@ -38,7 +38,6 @@ var BugService = (function () {
             createDate: Date.now()
         })
             .catch(function (err) { return console.error("Unable to add bug to Firebase - ", err); });
-        console.log(bug.description + " service");
     };
     BugService = __decorate([
         core_1.Injectable(), 
