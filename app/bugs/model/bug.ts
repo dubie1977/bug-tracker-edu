@@ -8,6 +8,23 @@ export class Bug{
         public createdBy: string,
         public createdDate: number,
         public updatedBy?: string,
-        public updatedDate?: string
+        public updatedDate?: number 
     ){}
+
+    public clone(bug: Bug){
+        const newBug = new Bug(
+                bug.id,
+                bug.title,
+                bug.status,
+                bug.severity,
+                bug.description,
+                bug.createdBy,
+                bug.createdDate,
+                bug.updatedBy,
+                bug.updatedDate
+            );
+            return newBug;
+    }
+
+    
 }

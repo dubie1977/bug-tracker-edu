@@ -35,7 +35,7 @@ var BugDetailComponent = (function () {
             description: new FormControl(null, Validators.required)
         });*/
         if (bug) {
-            this.currentBug = bug;
+            this.currentBug = bug_1.Bug.prototype.clone(bug);
         }
         //FormBuilder Reactive froms
         this.bugForm = this.formB.group({
@@ -46,16 +46,23 @@ var BugDetailComponent = (function () {
         });
     };
     BugDetailComponent.prototype.submitForm = function () {
-        console.log(this.bugForm);
-        this.addBug();
-    };
-    BugDetailComponent.prototype.addBug = function () {
         this.currentBug.title = this.bugForm.value["title"];
         this.currentBug.status = this.bugForm.value["status"];
         this.currentBug.severity = this.bugForm.value["severity"];
         this.currentBug.description = this.bugForm.value["description"];
-        this.bugService.addBug(this.currentBug);
+        if (this.currentBug.id) {
+            this.updateBug();
+        }
+        else {
+            this.addBug();
+        }
         this.freshForm();
+    };
+    BugDetailComponent.prototype.addBug = function () {
+        this.bugService.addBug(this.currentBug);
+    };
+    BugDetailComponent.prototype.updateBug = function () {
+        this.bugService.updateBug(this.currentBug);
     };
     BugDetailComponent.prototype.freshForm = function () {
         this.bugForm.reset({ status: 1, severity: 1 });
