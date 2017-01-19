@@ -15,7 +15,7 @@ import { forbiddenStringValidator } from '../../shared/validation/forbidden-stri
 export class BugDetailComponent implements OnInit {
     private modalId = "bugModal";
     private bugForm: FormGroup;
-    @Input() currentBug = new Bug(null, null, null, null, null, null, null, null, null);
+    @Input() currentBug = new Bug(null, null, 1, 1, null, null, null, null, null);
 
     //Required for FormBuilder
     //constructor(private formB: FormBuilder){}
@@ -26,8 +26,8 @@ export class BugDetailComponent implements OnInit {
         this.configureForm();
     }
 
-    configureForm(){
-
+    configureForm(bug?: Bug){
+       
         //Default Reactive forms
         /*this.bugForm = new FormGroup({
             // /puppy/i creates a regExp for string puppy anywhere ignoring case.
@@ -37,12 +37,16 @@ export class BugDetailComponent implements OnInit {
             description: new FormControl(null, Validators.required)
         });*/
 
+         if (bug){
+            this.currentBug = bug;
+        }
+
         //FormBuilder Reactive froms
         this.bugForm = this.formB.group({
-            title: [null, [Validators.required, forbiddenStringValidator(/puppy/i)]],
-            status: [1, Validators.required],
-            severity: [1, Validators.required],
-            description: [null, Validators.required]
+            title: [this.currentBug.title, [Validators.required, forbiddenStringValidator(/puppy/i)]],
+            status: [this.currentBug.status, Validators.required],
+            severity: [this.currentBug.severity, Validators.required],
+            description: [this.currentBug.description, Validators.required]
         });
     }
 
@@ -62,6 +66,11 @@ export class BugDetailComponent implements OnInit {
 
     freshForm(){
         this.bugForm.reset({ status: 1, severity: 1});
+        this.cleanBug;
+    }
+
+    cleanBug(){
+        this.currentBug = new Bug(null, null, 1, 1, null, null, null, null, null);
     }
 
 }

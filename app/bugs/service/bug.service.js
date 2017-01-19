@@ -35,7 +35,7 @@ var BugService = (function () {
             severity: bug.severity,
             description: bug.description,
             createdBy: 'tempUser',
-            createDate: Date.now()
+            createdDate: Date.now()
         })
             .catch(function (err) { return console.error("Unable to add bug to Firebase - ", err); });
     };
