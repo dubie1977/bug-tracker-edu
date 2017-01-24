@@ -6,14 +6,17 @@ h1 {
     border-radius: 0;
 }
 
-.btn-success {
+.btn-success,
+.btn-success:active,
+.btn-success:focus,
+.btn-success:active:focus {
     background-color: #a09474;
     border-color: #A09474;
 }
 
 .btn-success:hover,
 .btn-success:disabled,
-.btn-success:focus {
+.btn-success:disabled:hover{
     background-color: #ACA286;
     border-color: #ACA286;
 }
@@ -21,12 +24,16 @@ h1 {
 .btn-xl{
     padding:1.2rem 3rem;
 }
-.btn-primary{
+.btn-primary,
+.btn-primary:active,
+.btn-primary:focus,
+.btn-primary:active:focus{
     background-color: #34434B;
     border-color: #34434B;
 }
 .btn-primary:hover,
-.btn-primary::disabled{
+.btn-primary:disabled,
+.btn-primary:disabled:hover{
     background-color: #3F515A;
     border-color: #3F515A;
 }

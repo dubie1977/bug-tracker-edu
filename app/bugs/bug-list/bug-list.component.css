@@ -16,7 +16,7 @@ tr{
     border-bottom: .5px solid rgba(52, 67, 75, .1);
 }
 
-#bugRow{
+tbody > tr{
     cursor: pointer
 }
 

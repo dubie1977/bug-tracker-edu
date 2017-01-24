@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 import { BugService } from '../service/bug.service';
@@ -22,7 +22,7 @@ export class BugDetailComponent implements OnInit {
     private statusArr: string[] = [];
     private severityArr: string[] = [];
 
-    @Input() currentBug = new Bug(null, null, this.statuses.Logged, this.severities.Severe, null, null, null, null, null);
+    private currentBug = new Bug(null, null, this.statuses.Logged, this.severities.Severe, null, null, null, null, null);
 
     //Required for FormBuilder
     //constructor(private formB: FormBuilder){}
@@ -40,14 +40,16 @@ export class BugDetailComponent implements OnInit {
         //Default Reactive forms
         /*this.bugForm = new FormGroup({
             // /puppy/i creates a regExp for string puppy anywhere ignoring case.
-            title: new FormControl(null, [Validators.required, forbiddenStringValidator(/puppy/i) ] ),
-            status: new FormControl(1, Validators.required),
-            severity: new FormControl(1, Validators.required),
-            description: new FormControl(null, Validators.required)
+            title: new FormControl(this.currentBug.title, [Validators.required, forbiddenStringValidator(/puppy/i) ] ),
+            status: new FormControl(this.currentBug.status, Validators.required),
+            severity: new FormControl(this.currentBug.severity, Validators.required),
+            description: new FormControl(this.currentBug.description, Validators.required)
         });*/
 
          if (bug){
             this.currentBug = Bug.prototype.clone(bug);
+         } else {
+             this.cleanBug();
         }
 
         //FormBuilder Reactive froms
@@ -69,7 +71,6 @@ export class BugDetailComponent implements OnInit {
         } else {
             this.addBug();
         }
-        this.freshForm();
     }
 
     addBug(){

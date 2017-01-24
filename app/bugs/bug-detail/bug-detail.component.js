@@ -36,13 +36,16 @@ var BugDetailComponent = (function () {
         //Default Reactive forms
         /*this.bugForm = new FormGroup({
             // /puppy/i creates a regExp for string puppy anywhere ignoring case.
-            title: new FormControl(null, [Validators.required, forbiddenStringValidator(/puppy/i) ] ),
-            status: new FormControl(1, Validators.required),
-            severity: new FormControl(1, Validators.required),
-            description: new FormControl(null, Validators.required)
+            title: new FormControl(this.currentBug.title, [Validators.required, forbiddenStringValidator(/puppy/i) ] ),
+            status: new FormControl(this.currentBug.status, Validators.required),
+            severity: new FormControl(this.currentBug.severity, Validators.required),
+            description: new FormControl(this.currentBug.description, Validators.required)
         });*/
         if (bug) {
             this.currentBug = bug_1.Bug.prototype.clone(bug);
+        }
+        else {
+            this.cleanBug();
         }
         //FormBuilder Reactive froms
         this.bugForm = this.formB.group({
@@ -63,7 +66,6 @@ var BugDetailComponent = (function () {
         else {
             this.addBug();
         }
-        this.freshForm();
     };
     BugDetailComponent.prototype.addBug = function () {
         this.bugService.addBug(this.currentBug);
@@ -78,10 +80,6 @@ var BugDetailComponent = (function () {
     BugDetailComponent.prototype.cleanBug = function () {
         this.currentBug = new bug_1.Bug(null, null, this.statuses.Logged, this.severities.Severe, null, null, null, null, null);
     };
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], BugDetailComponent.prototype, "currentBug", void 0);
     BugDetailComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
