@@ -40,6 +40,18 @@ var BugService = (function () {
             });
         });
     };
+    BugService.prototype.getDeletedBugs = function () {
+        var _this = this;
+        return Observable_1.Observable.create(function (obs) {
+            _this.bugsDbRef.on('child_removed', function (bug) {
+                var deletedBug = bug.val();
+                deletedBug.id = bug.key;
+                obs.next(deletedBug);
+            }, function (err) {
+                obs.throw(err);
+            });
+        });
+    };
     BugService.prototype.addBug = function (bug) {
         var newBugRef = this.bugsDbRef.push();
         newBugRef.set({
@@ -58,6 +70,11 @@ var BugService = (function () {
         bug.updatedBy = "UpDated User";
         bug.updatedDate = Date.now();
         currentBugRef.update(bug);
+    };
+    BugService.prototype.deleteBug = function (bug) {
+        var deleteBugRef = this.bugsDbRef.child(bug.id);
+        deleteBugRef.remove()
+            .catch(function (err) { return console.error("Unable to remove bug from Firebase - ", err); });
     };
     BugService = __decorate([
         core_1.Injectable(), 
