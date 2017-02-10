@@ -9,9 +9,35 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var auth_service_1 = require('../core/service/auth.service');
 var NavbarComponent = (function () {
-    function NavbarComponent() {
+    function NavbarComponent(authService) {
+        this.authService = authService;
+        this._email = "you@gmail.com";
+        this._password = "dubie1977";
     }
+    NavbarComponent.prototype.test = function () {
+        console.log("test called");
+        this.authService.createLogin(this._email, this._password).then(function (authData) {
+            console.log("user created");
+        });
+    };
+    NavbarComponent.prototype.signIn = function () {
+        var _this = this;
+        console.log("signIn called");
+        this.authService.signInUser(this._email, this._password).then(function (authData) {
+            console.log(authData);
+            console.log("Email: " + _this.authService.getUserEmail());
+        });
+    };
+    NavbarComponent.prototype.signOut = function () {
+        var _this = this;
+        console.log("signOut called");
+        this.authService.signOutUser().then(function (authData) {
+            //console.log(authData);
+            console.log("Email: " + _this.authService.getUserEmail());
+        });
+    };
     NavbarComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
@@ -19,7 +45,7 @@ var NavbarComponent = (function () {
             templateUrl: 'navbar.component.html',
             styleUrls: ['navbar.component.css']
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [auth_service_1.AuthService])
     ], NavbarComponent);
     return NavbarComponent;
 }());

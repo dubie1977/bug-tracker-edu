@@ -10,22 +10,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
-var AppRoutingModule = (function () {
-    function AppRoutingModule() {
+var login_component_1 = require('./login/login.component');
+var UserRoutingModule = (function () {
+    function UserRoutingModule() {
     }
-    AppRoutingModule = __decorate([
+    UserRoutingModule = __decorate([
         core_1.NgModule({
-            imports: [router_1.RouterModule.forRoot([
-                    { path: '', redirectTo: 'bugs', pathMatch: 'full' },
-                    { path: 'login', redirectTo: 'login', pathMatch: 'full' },
-                    { path: '**', redirectTo: 'bugs' }
+            imports: [
+                router_1.RouterModule.forChild([
+                    { path: 'login', component: login_component_1.LoginComponent }
                 ])
             ],
             exports: [router_1.RouterModule]
         }), 
         __metadata('design:paramtypes', [])
-    ], AppRoutingModule);
-    return AppRoutingModule;
+    ], UserRoutingModule);
+    return UserRoutingModule;
 }());
-exports.AppRoutingModule = AppRoutingModule;
-//# sourceMappingURL=app-routing.module.js.map
+exports.UserRoutingModule = UserRoutingModule;
+//# sourceMappingURL=user-routing.module.js.map

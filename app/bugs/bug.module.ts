@@ -10,6 +10,7 @@ import { BugDetailComponent } from './bug-detail/bug-detail.component';
 
 //Service
 import { BugService } from './service/bug.service';
+//import { AuthService } from './service/auth.service';
 
 @NgModule({
     imports: [ 

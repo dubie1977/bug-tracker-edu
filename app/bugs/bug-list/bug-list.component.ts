@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { BugService } from '../service/bug.service';
 
+
 import { Bug } from '../model/bug';
 
 @Component({

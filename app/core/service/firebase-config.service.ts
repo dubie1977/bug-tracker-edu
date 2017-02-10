@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import * as firebase from 'firebase';
 require('firebase/database')
+require('firebase/auth')
 
 import { FIREBASE_CONFIG } from '../constant/constants';
 
@@ -13,6 +14,8 @@ export class FirebaseConfigService{
     constructor(){
         this.configureApp();
         this.configureDatabase();
+
+        
     }
 
     public get database(): firebase.database.Database{

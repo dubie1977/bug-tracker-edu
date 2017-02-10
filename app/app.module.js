@@ -12,6 +12,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var bug_module_1 = require('./bugs/bug.module');
+var user_module_1 = require('./users/user.module');
 var app_routing_module_1 = require('./app-routing.module');
 var core_module_1 = require('./core/core.module');
 // Component
@@ -24,6 +25,7 @@ var AppModule = (function () {
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule,
                 bug_module_1.BugModule,
+                user_module_1.UserModule,
                 app_routing_module_1.AppRoutingModule,
                 core_module_1.CoreModule.forRoot()
             ],

@@ -18,6 +18,7 @@ var bug_list_component_1 = require('./bug-list/bug-list.component');
 var bug_detail_component_1 = require('./bug-detail/bug-detail.component');
 //Service
 var bug_service_1 = require('./service/bug.service');
+//import { AuthService } from './service/auth.service';
 var BugModule = (function () {
     function BugModule() {
     }

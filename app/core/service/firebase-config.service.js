@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var firebase = require('firebase');
 require('firebase/database');
+require('firebase/auth');
 var constants_1 = require('../constant/constants');
 var FirebaseConfigService = (function () {
     function FirebaseConfigService() {

@@ -2,6 +2,7 @@ import { NgModule, ModuleWithProviders, Optional, SkipSelf } from '@angular/core
 
 //Services
 import { FirebaseConfigService } from './service/firebase-config.service';
+import { AuthService } from './service/auth.service';
 
 @NgModule({
     imports:[],
@@ -18,7 +19,8 @@ export class CoreModule{
     static forRoot(): ModuleWithProviders{
         return {
             ngModule: CoreModule,
-            providers: [ FirebaseConfigService ]
+            providers: [ FirebaseConfigService,
+                AuthService ]
         };
     }
 }
