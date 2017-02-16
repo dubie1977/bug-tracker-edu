@@ -58,7 +58,7 @@ export class BugService{
             status: bug.status,
             severity: bug.severity,
             description: bug.description,
-            createdBy: 'tempUser',
+            createdBy: "new",
             createdDate: Date.now()
         })
         .catch(err => console.error("Unable to add bug to Firebase - ", err));
@@ -67,7 +67,7 @@ export class BugService{
     updateBug(bug: Bug){
         const currentBugRef = this.bugsDbRef.child(bug.id);
         bug.id = null; //Done so that firebase dosen't save this as a property as it is already the object key.
-        bug.updatedBy = "UpDated User";
+        bug.updatedBy = "fire";
         bug.updatedDate = Date.now();
         currentBugRef.update(bug);
     }

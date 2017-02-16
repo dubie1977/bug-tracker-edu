@@ -16,9 +16,9 @@ var AppRoutingModule = (function () {
     AppRoutingModule = __decorate([
         core_1.NgModule({
             imports: [router_1.RouterModule.forRoot([
-                    { path: '', redirectTo: 'bugs', pathMatch: 'full' },
+                    { path: '', redirectTo: 'login', pathMatch: 'full' },
                     { path: 'login', redirectTo: 'login', pathMatch: 'full' },
-                    { path: '**', redirectTo: 'bugs' }
+                    { path: 'bugs', redirectTo: 'bugs' }
                 ])
             ],
             exports: [router_1.RouterModule]

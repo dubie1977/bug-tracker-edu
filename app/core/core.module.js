@@ -15,6 +15,7 @@ var core_1 = require('@angular/core');
 //Services
 var firebase_config_service_1 = require('./service/firebase-config.service');
 var auth_service_1 = require('./service/auth.service');
+var navbar_component_1 = require('../navbar/navbar.component');
 var CoreModule = (function () {
     function CoreModule(parentModule) {
         if (parentModule) {
@@ -25,7 +26,8 @@ var CoreModule = (function () {
         return {
             ngModule: CoreModule,
             providers: [firebase_config_service_1.FirebaseConfigService,
-                auth_service_1.AuthService]
+                auth_service_1.AuthService,
+                navbar_component_1.NavbarComponent]
         };
     };
     CoreModule = __decorate([

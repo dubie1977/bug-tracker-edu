@@ -30,7 +30,7 @@ var UserModule = (function () {
                 login_component_1.LoginComponent
             ],
             exports: [],
-            providers: []
+            providers: [login_component_1.LoginComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], UserModule);

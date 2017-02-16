@@ -14,7 +14,9 @@ var NavbarComponent = (function () {
     function NavbarComponent(authService) {
         this.authService = authService;
         this._email = "you@gmail.com";
+        this._signedIn = false;
         this._password = "dubie1977";
+        this.email = "Not Signed";
     }
     NavbarComponent.prototype.test = function () {
         console.log("test called");
@@ -22,21 +24,48 @@ var NavbarComponent = (function () {
             console.log("user created");
         });
     };
+    NavbarComponent.prototype.setUser = function (user) {
+        this.user = user;
+        if (this.user != null) {
+            this._signedIn = true;
+            this.email = user.email;
+        }
+        else {
+            this._signedIn = false;
+            this.email = "Not Signed";
+        }
+    };
+    NavbarComponent.prototype.getEmailAddress = function () {
+        if (this._signedIn) {
+            this._email = firebase.auth().currentUser.email;
+        }
+        else {
+            this._email = "Not Signed In";
+        }
+        return this._email;
+    };
+    NavbarComponent.prototype.isSignedIn = function () {
+        return this._signedIn;
+    };
     NavbarComponent.prototype.signIn = function () {
         var _this = this;
         console.log("signIn called");
         this.authService.signInUser(this._email, this._password).then(function (authData) {
             console.log(authData);
             console.log("Email: " + _this.authService.getUserEmail());
+            _this._signedIn = true;
         });
     };
     NavbarComponent.prototype.signOut = function () {
         var _this = this;
         console.log("signOut called");
-        this.authService.signOutUser().then(function (authData) {
-            //console.log(authData);
-            console.log("Email: " + _this.authService.getUserEmail());
-        });
+        if (this.isSignedIn()) {
+            this.authService.signOutUser().then(function (authData) {
+                //console.log(authData);
+                console.log("Email: " + _this.authService.getUserEmail());
+                _this._signedIn = false;
+            });
+        }
     };
     NavbarComponent = __decorate([
         core_1.Component({
