@@ -3,7 +3,7 @@
         <a routerLink="bugs" class="navbar-brand"><img src="/assets/images/buggedout-logo.png" alt=""></a>
         <ul class="nav navbar-nav float-xs-right">
             <li class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" id="hav-dropdown" data-toggle="dropdown"  aria-haspopup="true"  aria-expanded="false">{{email}}</a>
+                <a href="#" class="nav-link dropdown-toggle" id="hav-dropdown" data-toggle="dropdown"  aria-haspopup="true"  aria-expanded="false">{{getEmailAddress()}}</a>
                 <div class="dropdown-menu" aria-labelledby="nav-dropdown">
                     <div *ngIf="!isSignedIn()">
                         <a routerLink="login" class="dropdown-item" (click)="signOut()">Sign Out</a>
@@ -11,7 +11,7 @@
                     <div *ngIf="!isSignedIn()"></div>
                     <a routerLink="login" class="dropdown-item">Sign In</a>
                 </div>
-                 <P id="email">User's Email: {{email}}</P>
+                 <P id="email">User's Email: [(email)]</P>
             </li>
         </ul>
 

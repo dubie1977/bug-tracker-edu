@@ -28,11 +28,12 @@ export class NavbarComponent{
         });
     }
 
-    setUser(user: User){
+    public setUser(user: User){
         this.user = user;
         if (this.user != null){
             this._signedIn = true;
             this.email = user.email;
+            console.log("user set: "+user.email);
         } else{
             this._signedIn = false;
             this.email = "Not Signed";
@@ -58,21 +59,21 @@ export class NavbarComponent{
 
     signIn(){
         console.log("signIn called")
-        this.authService.signInUser(this._email, this._password).then(authData => {
-            console.log(authData);
-            console.log("Email: "+this.authService.getUserEmail());
-            this._signedIn = true;
-        });   
+         
     }
 
     signOut(){
         console.log("signOut called")
         if (this.isSignedIn()){
-            this.authService.signOutUser().then(authData => {
-                //console.log(authData);
-                console.log("Email: "+this.authService.getUserEmail());
-                this._signedIn = false;
-            });
+            try{
+                this.authService.signOutUser().then(authData => {
+                    console.log("Signend Out ");
+                    this._signedIn = false;
+                });
+            } catch(e){
+                console.log("LogOut error: "+e);
+            }
+            
         }
         
     }

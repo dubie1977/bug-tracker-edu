@@ -6,10 +6,13 @@ import { UserModule } from './users/user.module';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 
-// Component
+// Components
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 
+// Services
+import { AuthService } from './core/service/auth.service';
+import { FirebaseConfigService } from './core/service/firebase-config.service';
 
 @NgModule({
     imports: [ BrowserModule,
@@ -22,6 +25,8 @@ import { NavbarComponent } from './navbar/navbar.component';
         AppComponent,
         NavbarComponent
          ],
+    providers:[ AuthService,
+                FirebaseConfigService ],
     bootstrap: [ AppComponent ]
 })
 

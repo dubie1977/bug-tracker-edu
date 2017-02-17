@@ -29,6 +29,7 @@ var NavbarComponent = (function () {
         if (this.user != null) {
             this._signedIn = true;
             this.email = user.email;
+            console.log("user set: " + user.email);
         }
         else {
             this._signedIn = false;
@@ -48,23 +49,21 @@ var NavbarComponent = (function () {
         return this._signedIn;
     };
     NavbarComponent.prototype.signIn = function () {
-        var _this = this;
         console.log("signIn called");
-        this.authService.signInUser(this._email, this._password).then(function (authData) {
-            console.log(authData);
-            console.log("Email: " + _this.authService.getUserEmail());
-            _this._signedIn = true;
-        });
     };
     NavbarComponent.prototype.signOut = function () {
         var _this = this;
         console.log("signOut called");
         if (this.isSignedIn()) {
-            this.authService.signOutUser().then(function (authData) {
-                //console.log(authData);
-                console.log("Email: " + _this.authService.getUserEmail());
-                _this._signedIn = false;
-            });
+            try {
+                this.authService.signOutUser().then(function (authData) {
+                    console.log("Signend Out ");
+                    _this._signedIn = false;
+                });
+            }
+            catch (e) {
+                console.log("LogOut error: " + e);
+            }
         }
     };
     NavbarComponent = __decorate([

@@ -31,13 +31,18 @@ var BugService = (function () {
     BugService.prototype.getChangedBugs = function () {
         var _this = this;
         return Observable_1.Observable.create(function (obs) {
-            _this.bugsDbRef.on('child_changed', function (bug) {
-                var updatedBug = bug.val();
-                updatedBug.id = bug.key;
-                obs.next(updatedBug);
-            }, function (err) {
-                obs.throw(err);
-            });
+            try {
+                _this.bugsDbRef.on('child_changed', function (bug) {
+                    var updatedBug = bug.val();
+                    updatedBug.id = bug.key;
+                    obs.next(updatedBug);
+                }, function (err) {
+                    obs.throw(err);
+                });
+            }
+            catch (err) {
+                console.log(err); //TODO - Remove
+            }
         });
     };
     BugService.prototype.getDeletedBugs = function () {

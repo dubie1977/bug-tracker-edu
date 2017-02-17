@@ -30,38 +30,47 @@ var AuthService = (function () {
         console.log("in createLogin"); //TODO Remove
         try {
             var data = firebase.auth().createUserWithEmailAndPassword(user, password);
-            console.log(data);
+            console.log(data); //TODO - Remove
             return data;
         }
         catch (e) {
-            console.log(e);
+            console.log(e); //TODO - Remove
         }
     };
     AuthService.prototype.signInUser = function (user, password) {
-        console.log(" sign in ");
+        console.log(" sign in "); //TODO - Remove
         try {
-            var data = firebase.auth().signInWithEmailAndPassword(user, password);
-            var data2 = firebase.auth().currentUser;
-            console.log("data: " + firebase.auth().currentUser.email);
-            return data;
+            firebase.auth().signInWithEmailAndPassword(user, password).then(function (data) {
+                var data2 = firebase.auth().currentUser;
+                if (data2 != null) {
+                    console.log("user: " + data2.email); //TODO - Remove
+                    console.log("data: " + data); //TODO - Remove
+                }
+                return data2;
+            }).catch(function (err) {
+                console.log(err); //TODO - Remove
+            });
         }
         catch (e) {
-            console.log(e);
+            console.log(e); //TODO - Remove
         }
     };
     AuthService.prototype.signOutUser = function () {
         try {
             console.log("in signOutUser"); //TODO Remove
-            var data = firebase.auth().signOut().catch(function (err) {
-                console.log(err);
+            var data = firebase.auth().signOut().then(function (data) {
+                var data2 = firebase.auth().currentUser;
+                console.log("data: " + data); //TODO - Remove
+                if (data2 != null) {
+                    console.log("data2: " + data2.email); //TODO - Remove
+                }
+                return data;
+            }).catch(function (err) {
+                console.log(err); //TODO - Remove
             });
-            var data2 = firebase.auth().currentUser;
-            console.log("data: " + data);
-            console.log("data2: " + data2.email);
-            return data;
         }
         catch (e) {
-            console.log(e);
+            console.log(e); //TODO - Remove
         }
     };
     AuthService = __decorate([

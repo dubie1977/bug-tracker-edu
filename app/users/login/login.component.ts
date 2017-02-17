@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 import { AuthService } from '../../core/service/auth.service';
@@ -18,11 +18,23 @@ export class LoginComponent implements OnInit{
     private loginForm: FormGroup;
     private _emailAddress: string;
     private _password: string;
+    private _user: User;
 
-    constructor(private formB: FormBuilder, private authService: AuthService, private navbar : NavbarComponent){}
+    @ViewChild(NavbarComponent)
+    private navbar = new NavbarComponent(this.authService);
+
+    constructor(private formB: FormBuilder, private authService: AuthService){}
 
     ngOnInit(){
         this.configureForm();
+    }
+
+    getUserEmail(): string{
+        if(this._user == null){
+            return "Not Logged In"
+        } else{
+            return this._user.email;
+        }
     }
 
     configureForm(){
@@ -32,17 +44,35 @@ export class LoginComponent implements OnInit{
         });
     }
 
+    logout(){
+        try{
+            this.authService.signOutUser().then(authData => {
+                this._user = null;
+            });
+            
+        } catch(e) {
+            //console.log(e);
+        }
+    }
+
     login(){
         console.log("signIn called")
-       var email = this.loginForm.value["emailAddress"];
-       var password = this.loginForm.value["password"];
-        this.authService.signInUser(email, password).then(authData => {
-            console.log("logged in");
-            this.navbar.setUser(new User("uid", email, null, null, null, null));
-        }).catch(err => {
-            console.log("Error: "+err);
-            this.navbar.setUser(null);
-        }); 
+       let email = this.loginForm.value["emailAddress"];
+       let password = this.loginForm.value["password"];
+       let user: User;
+       try{
+           this.authService.signInUser(email, password).then(authData => {
+                console.log("logged in");
+                this._user = new User("uid", email, null, null, null, null);
+            })
+       } catch(e){
+            //console.log("Error: "+e);
+       } finally{
+           if(user == null){
+
+           }
+       }
+
     }
 
     createAccount(){

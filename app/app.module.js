@@ -15,9 +15,12 @@ var bug_module_1 = require('./bugs/bug.module');
 var user_module_1 = require('./users/user.module');
 var app_routing_module_1 = require('./app-routing.module');
 var core_module_1 = require('./core/core.module');
-// Component
+// Components
 var app_component_1 = require('./app.component');
 var navbar_component_1 = require('./navbar/navbar.component');
+// Services
+var auth_service_1 = require('./core/service/auth.service');
+var firebase_config_service_1 = require('./core/service/firebase-config.service');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -33,6 +36,8 @@ var AppModule = (function () {
                 app_component_1.AppComponent,
                 navbar_component_1.NavbarComponent
             ],
+            providers: [auth_service_1.AuthService,
+                firebase_config_service_1.FirebaseConfigService],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])

@@ -28,14 +28,19 @@ export class BugService{
 
     getChangedBugs(): Observable<any>{
         return Observable.create(obs =>{
-            this.bugsDbRef.on('child_changed', bug => {
-                const updatedBug = bug.val() as Bug;
-                updatedBug.id = bug.key;
-                obs.next(updatedBug);
-            }, 
-            err => {
-                obs.throw(err);
-            });
+            try{
+                this.bugsDbRef.on('child_changed', bug => {
+                    const updatedBug = bug.val() as Bug;
+                    updatedBug.id = bug.key;
+                    obs.next(updatedBug);
+                }, 
+                err => {
+                    obs.throw(err);
+                });
+            } catch(err){
+                console.log(err);//TODO - Remove
+            }
+            
         });
     }
 

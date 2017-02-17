@@ -37,23 +37,30 @@ export class AuthService{
 
         try {
             let data = firebase.auth().createUserWithEmailAndPassword(user, password);
-            console.log(data);
+            console.log(data);//TODO - Remove
             return data;
         } catch(e){
-            console.log(e);
+            console.log(e);//TODO - Remove
         }
     }
 
     signInUser(user: string, password: string): any{
 
-        console.log(" sign in ");
+        console.log(" sign in ");//TODO - Remove
         try{
-            let data = firebase.auth().signInWithEmailAndPassword(user, password);
-            let data2 = firebase.auth().currentUser;
-            console.log("data: "+firebase.auth().currentUser.email);
-            return data;
+            firebase.auth().signInWithEmailAndPassword(user, password).then(data => {
+                let data2 = firebase.auth().currentUser;
+                if(data2 != null){
+                    console.log("user: "+data2.email);//TODO - Remove
+                    console.log("data: "+data);//TODO - Remove
+                }
+                return data2;
+            }).catch(err => {
+                console.log(err);//TODO - Remove
+            })
+            
         } catch(e){
-            console.log(e);
+            console.log(e);//TODO - Remove
         }
 
     }
@@ -63,15 +70,20 @@ export class AuthService{
         try{
             console.log("in signOutUser") //TODO Remove
 
-            let data = firebase.auth().signOut().catch(err => {
-                console.log(err); 
+            let data = firebase.auth().signOut().then(data => {
+                let data2 = firebase.auth().currentUser;
+                console.log("data: "+data);//TODO - Remove
+                if(data2 != null){
+                    console.log("data2: "+data2.email);//TODO - Remove
+                }
+                
+                return data;
+            }).catch(err => {
+                console.log(err); //TODO - Remove
             });
-            let data2 = firebase.auth().currentUser;
-            console.log("data: "+data);
-            console.log("data2: "+data2.email);
-            return data;
+            
         }catch(e){
-            console.log(e);
+            console.log(e);//TODO - Remove
         }
         
     }

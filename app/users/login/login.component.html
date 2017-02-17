@@ -1,4 +1,4 @@
-<div class="col-xs-4"></div>
+<div class="col-xs-4">{{getUserEmail()}}</div>
 <div class="col-xs-4">
     <form [formGroup]="loginForm">
         <div class="form-group" id="email-form-group">
@@ -10,10 +10,10 @@
             <input type="password" class="form-control" id="password" placeholder="Password" formControlName="password">
         </div>
         <div class="col-xs-8">
-            <button class="btn btn-success btn-xl" routerLink="/bugs" type="submit" (click)="login()" [disabled]="loginForm.invalid"><a routerLink="" class="dropdown-item"></a>Sign In</button>
+            <button class="btn btn-success btn-xl" routerLink="/bugs" type="submit" (click)="login()" [disabled]="loginForm.invalid">Sign In</button>
         </div>
         <div class="col-xs-4">
-            <button class="btn btn-success btn-xl" routerLink="/bugs" type="submit" (click)="createAccount()" [disabled]="loginForm.invalid"><a routerLink="" class="dropdown-item"></a>Create Account</button>
+            <button class="btn btn-success btn-xl"  type="submit" (click)="logout()" >Sign Out</button>
         </div>
         
     </form>
