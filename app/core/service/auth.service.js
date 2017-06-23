@@ -9,22 +9,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var Observable_1 = require('rxjs/Observable');
+var Rx_1 = require('rxjs/Rx');
 var constants_1 = require('../constant/constants');
 //import { FirebaseConfigService } from '../../core/service/firebase-config.service';
 var firebase = require('firebase');
 require('firebase/auth');
 var AuthService = (function () {
     function AuthService() {
+        this._user = new Rx_1.BehaviorSubject(this._currentUser);
         this.configureApp();
     }
     AuthService.prototype.getUser = function () {
-        return this._currentUser;
+        return this._user;
     };
     AuthService.prototype.configureApp = function () {
         firebase.initializeApp(constants_1.FIREBASE_CONFIG);
     };
     AuthService.prototype.getUserEmail = function () {
-        return firebase.auth().currentUser.email;
+        var _this = this;
+        return Observable_1.Observable.create(function (obs) {
+            var email;
+            if (_this._currentUser != null) {
+                email = _this._currentUser.email;
+                console.log("email");
+            }
+            obs.next(email);
+        });
     };
     AuthService.prototype.createLogin = function (user, password) {
         console.log("in createLogin"); //TODO Remove
@@ -38,22 +49,27 @@ var AuthService = (function () {
         }
     };
     AuthService.prototype.signInUser = function (user, password) {
+        var _this = this;
         console.log(" sign in "); //TODO - Remove
-        try {
-            firebase.auth().signInWithEmailAndPassword(user, password).then(function (data) {
-                var data2 = firebase.auth().currentUser;
-                if (data2 != null) {
-                    console.log("user: " + data2.email); //TODO - Remove
-                    console.log("data: " + data); //TODO - Remove
-                }
-                return data2;
-            }).catch(function (err) {
-                console.log(err); //TODO - Remove
-            });
-        }
-        catch (e) {
-            console.log(e); //TODO - Remove
-        }
+        return Observable_1.Observable.create(function (obs) {
+            try {
+                firebase.auth().signInWithEmailAndPassword(user, password).then(function (data) {
+                    var data2 = firebase.auth().currentUser;
+                    if (data2 != null) {
+                        console.log("user: " + data2.email); //TODO - Remove
+                        console.log("data: " + data); //TODO - Remove
+                        _this._user.next(data2);
+                        obs.complete();
+                    }
+                    //return data2;
+                }).catch(function (err) {
+                    console.log(err); //TODO - Remove
+                });
+            }
+            catch (e) {
+                console.log(e); //TODO - Remove
+            }
+        });
     };
     AuthService.prototype.signOutUser = function () {
         try {

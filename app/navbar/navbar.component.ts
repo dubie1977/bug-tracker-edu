@@ -21,6 +21,10 @@ export class NavbarComponent{
 
     constructor(private authService: AuthService){}
 
+    ngOnInit(){
+        this.getUser();
+    }
+
     test(){
         console.log("test called")
         this.authService.createLogin(this._email, this._password).then(authData => {
@@ -28,7 +32,21 @@ export class NavbarComponent{
         });
     }
 
-    public setUser(user: User){
+    public getUser(){
+        this.authService.getUser().subscribe(user =>{
+            if(user != null){
+                this.user = user;
+                this._email = user.email;
+                this._signedIn = true;
+            } else{
+                this._signedIn = false;
+                this.user = null;
+                this._email = "Not logged in"
+            }
+        });
+    }
+
+/*    public setUser(user: User){
         this.user = user;
         if (this.user != null){
             this._signedIn = true;
@@ -38,19 +56,16 @@ export class NavbarComponent{
             this._signedIn = false;
             this.email = "Not Signed";
         }
-    }
+    }*/
 
     getEmailAddress(): string{
-        
+
         if(this._signedIn){
-            this._email = firebase.auth().currentUser.email;
+            return this.user.email;
         } else {
-            this._email = "Not Signed In";
+            return "Not Signed In";
         }
 
-
-
-        return this._email;
     }
 
     isSignedIn(): boolean{

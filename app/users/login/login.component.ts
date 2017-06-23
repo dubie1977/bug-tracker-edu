@@ -61,9 +61,10 @@ export class LoginComponent implements OnInit{
        let password = this.loginForm.value["password"];
        let user: User;
        try{
-           this.authService.signInUser(email, password).then(authData => {
+           this.authService.signInUser(email, password).subscribe(authData => {
                 console.log("logged in");
                 this._user = new User("uid", email, null, null, null, null);
+                //return true;
             })
        } catch(e){
             //console.log("Error: "+e);

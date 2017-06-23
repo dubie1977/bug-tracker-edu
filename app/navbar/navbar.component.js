@@ -18,32 +18,48 @@ var NavbarComponent = (function () {
         this._password = "dubie1977";
         this.email = "Not Signed";
     }
+    NavbarComponent.prototype.ngOnInit = function () {
+        this.getUser();
+    };
     NavbarComponent.prototype.test = function () {
         console.log("test called");
         this.authService.createLogin(this._email, this._password).then(function (authData) {
             console.log("user created");
         });
     };
-    NavbarComponent.prototype.setUser = function (user) {
-        this.user = user;
-        if (this.user != null) {
-            this._signedIn = true;
-            this.email = user.email;
-            console.log("user set: " + user.email);
-        }
-        else {
-            this._signedIn = false;
-            this.email = "Not Signed";
-        }
+    NavbarComponent.prototype.getUser = function () {
+        var _this = this;
+        this.authService.getUser().subscribe(function (user) {
+            if (user != null) {
+                _this.user = user;
+                _this._email = user.email;
+                _this._signedIn = true;
+            }
+            else {
+                _this._signedIn = false;
+                _this.user = null;
+                _this._email = "Not logged in";
+            }
+        });
     };
+    /*    public setUser(user: User){
+            this.user = user;
+            if (this.user != null){
+                this._signedIn = true;
+                this.email = user.email;
+                console.log("user set: "+user.email);
+            } else{
+                this._signedIn = false;
+                this.email = "Not Signed";
+            }
+        }*/
     NavbarComponent.prototype.getEmailAddress = function () {
         if (this._signedIn) {
-            this._email = firebase.auth().currentUser.email;
+            return this.user.email;
         }
         else {
-            this._email = "Not Signed In";
+            return "Not Signed In";
         }
-        return this._email;
     };
     NavbarComponent.prototype.isSignedIn = function () {
         return this._signedIn;

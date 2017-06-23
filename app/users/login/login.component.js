@@ -53,9 +53,10 @@ var LoginComponent = (function () {
         var password = this.loginForm.value["password"];
         var user;
         try {
-            this.authService.signInUser(email, password).then(function (authData) {
+            this.authService.signInUser(email, password).subscribe(function (authData) {
                 console.log("logged in");
                 _this._user = new user_1.User("uid", email, null, null, null, null);
+                //return true;
             });
         }
         catch (e) {

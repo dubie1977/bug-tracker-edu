@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/Rx';
 
 import { User } from '../model/user';
 
@@ -15,21 +16,30 @@ require('firebase/auth')
 export class AuthService{
 
     private _currentUser: User;
+    private _user: BehaviorSubject<User> = new BehaviorSubject(this._currentUser);
 
     constructor(){ 
         this.configureApp();
     }
 
-    public getUser(): User{
-        return this._currentUser;
+    public getUser(): Observable<User>{
+        return this._user;
     }
 
     configureApp(){
         firebase.initializeApp(FIREBASE_CONFIG);
     }
 
-    public getUserEmail(): string{
-        return firebase.auth().currentUser.email;
+    getUserEmail(): Observable<any> {
+        return Observable.create(obs => {
+            let email: string;
+            if(this._currentUser != null){
+                email = this._currentUser.email;
+                console.log("email");
+            }
+            obs.next(email);
+        });
+
     }
 
     createLogin(user: string, password: string): any{
@@ -44,25 +54,29 @@ export class AuthService{
         }
     }
 
-    signInUser(user: string, password: string): any{
+    signInUser(user: string, password: string): Observable<any>{
 
         console.log(" sign in ");//TODO - Remove
-        try{
-            firebase.auth().signInWithEmailAndPassword(user, password).then(data => {
-                let data2 = firebase.auth().currentUser;
-                if(data2 != null){
-                    console.log("user: "+data2.email);//TODO - Remove
-                    console.log("data: "+data);//TODO - Remove
-                }
-                return data2;
-            }).catch(err => {
-                console.log(err);//TODO - Remove
-            })
-            
-        } catch(e){
-            console.log(e);//TODO - Remove
-        }
+        return Observable.create(obs => {
 
+            try{
+                firebase.auth().signInWithEmailAndPassword(user, password).then(data => {
+                    let data2 = firebase.auth().currentUser;
+                    if(data2 != null){
+                        console.log("user: "+data2.email);//TODO - Remove
+                        console.log("data: "+data);//TODO - Remove
+                        this._user.next(data2);
+                        obs.complete();
+                    }
+                    //return data2;
+                }).catch(err => {
+                    console.log(err);//TODO - Remove
+                })
+                
+            } catch(e){
+                console.log(e);//TODO - Remove
+            }
+        });
     }
 
     signOutUser(): any {

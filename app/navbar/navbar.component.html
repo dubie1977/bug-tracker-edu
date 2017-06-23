@@ -5,13 +5,14 @@
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" id="hav-dropdown" data-toggle="dropdown"  aria-haspopup="true"  aria-expanded="false">{{getEmailAddress()}}</a>
                 <div class="dropdown-menu" aria-labelledby="nav-dropdown">
-                    <div *ngIf="!isSignedIn()">
+                    <div *ngIf="isSignedIn()">
                         <a routerLink="login" class="dropdown-item" (click)="signOut()">Sign Out</a>
                     </div>
-                    <div *ngIf="!isSignedIn()"></div>
-                    <a routerLink="login" class="dropdown-item">Sign In</a>
+                    <div *ngIf="!isSignedIn()">
+                        <a routerLink="login" class="dropdown-item">Sign In</a>
+                    </div>
                 </div>
-                 <P id="email">User's Email: [(email)]</P>
+                 <P id="email">User's Email: {{_email}}</P>
             </li>
         </ul>
 
