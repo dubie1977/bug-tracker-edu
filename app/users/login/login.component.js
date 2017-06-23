@@ -57,11 +57,18 @@ var LoginComponent = (function () {
                 console.log("logged in");
                 _this._user = new user_1.User("uid", email, null, null, null, null);
                 //return true;
-            });
+                console.log("user logged in");
+            }, function (err) {
+                console.log("Problem logging in");
+            }), function (err) {
+                console.log("Problem logging in2");
+            };
         }
         catch (e) {
+            console.log("Error: " + e);
         }
         finally {
+            console.log("finaly ");
             if (user == null) {
             }
         }

@@ -56,27 +56,30 @@ export class AuthService{
 
     signInUser(user: string, password: string): Observable<any>{
 
-        console.log(" sign in ");//TODO - Remove
         return Observable.create(obs => {
-
-            try{
-                firebase.auth().signInWithEmailAndPassword(user, password).then(data => {
-                    let data2 = firebase.auth().currentUser;
-                    if(data2 != null){
-                        console.log("user: "+data2.email);//TODO - Remove
-                        console.log("data: "+data);//TODO - Remove
-                        this._user.next(data2);
-                        obs.complete();
-                    }
-                    //return data2;
-                }).catch(err => {
-                    console.log(err);//TODO - Remove
-                })
-                
-            } catch(e){
-                console.log(e);//TODO - Remove
-            }
+            firebase.auth().signInWithEmailAndPassword(user, password).then(data => {
+                if(data != null){
+                    this._user.next(data);
+                    //obs.complete();
+                }
+            },
+            err => {
+                //console.log(err);//TODO - Remove
+                obs.throw( err);
+            });
         });
+
+
+        /*return Observable.create(obs => {
+            this.bugsDbRef.on('child_added', bug => {
+                const newBug = bug.val() as Bug;
+                newBug.id = bug.key;
+                obs.next(newBug);
+            },
+            err => {
+                obs.throw(err);
+            });
+        });*/
     }
 
     signOutUser(): any {

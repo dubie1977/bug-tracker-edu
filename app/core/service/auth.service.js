@@ -50,26 +50,26 @@ var AuthService = (function () {
     };
     AuthService.prototype.signInUser = function (user, password) {
         var _this = this;
-        console.log(" sign in "); //TODO - Remove
         return Observable_1.Observable.create(function (obs) {
-            try {
-                firebase.auth().signInWithEmailAndPassword(user, password).then(function (data) {
-                    var data2 = firebase.auth().currentUser;
-                    if (data2 != null) {
-                        console.log("user: " + data2.email); //TODO - Remove
-                        console.log("data: " + data); //TODO - Remove
-                        _this._user.next(data2);
-                        obs.complete();
-                    }
-                    //return data2;
-                }).catch(function (err) {
-                    console.log(err); //TODO - Remove
-                });
-            }
-            catch (e) {
-                console.log(e); //TODO - Remove
-            }
+            firebase.auth().signInWithEmailAndPassword(user, password).then(function (data) {
+                if (data != null) {
+                    _this._user.next(data);
+                }
+            }, function (err) {
+                //console.log(err);//TODO - Remove
+                obs.throw(err);
+            });
         });
+        /*return Observable.create(obs => {
+            this.bugsDbRef.on('child_added', bug => {
+                const newBug = bug.val() as Bug;
+                newBug.id = bug.key;
+                obs.next(newBug);
+            },
+            err => {
+                obs.throw(err);
+            });
+        });*/
     };
     AuthService.prototype.signOutUser = function () {
         try {
