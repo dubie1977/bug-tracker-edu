@@ -12,7 +12,6 @@ var core_1 = require('@angular/core');
 var forms_1 = require('@angular/forms');
 var auth_service_1 = require('../../core/service/auth.service');
 var navbar_component_1 = require('../../navbar/navbar.component');
-var user_1 = require('../../core/model/user');
 var LoginComponent = (function () {
     function LoginComponent(formB, authService) {
         this.formB = formB;
@@ -55,22 +54,17 @@ var LoginComponent = (function () {
         try {
             this.authService.signInUser(email, password).subscribe(function (authData) {
                 console.log("logged in");
-                _this._user = new user_1.User("uid", email, null, null, null, null);
-                //return true;
-                console.log("user logged in");
-            }, function (err) {
-                console.log("Problem logging in");
-            }), function (err) {
-                console.log("Problem logging in2");
-            };
+                console.log(authData);
+                if (authData != null) {
+                    _this._user = authData;
+                }
+                else {
+                    return false;
+                }
+            });
         }
         catch (e) {
             console.log("Error: " + e);
-        }
-        finally {
-            console.log("finaly ");
-            if (user == null) {
-            }
         }
     };
     LoginComponent.prototype.createAccount = function () {

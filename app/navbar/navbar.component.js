@@ -68,14 +68,10 @@ var NavbarComponent = (function () {
         console.log("signIn called");
     };
     NavbarComponent.prototype.signOut = function () {
-        var _this = this;
         console.log("signOut called");
         if (this.isSignedIn()) {
             try {
-                this.authService.signOutUser().then(function (authData) {
-                    console.log("Signend Out ");
-                    _this._signedIn = false;
-                });
+                this.authService.signOutUser();
             }
             catch (e) {
                 console.log("LogOut error: " + e);

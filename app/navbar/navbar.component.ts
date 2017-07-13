@@ -81,10 +81,11 @@ export class NavbarComponent{
         console.log("signOut called")
         if (this.isSignedIn()){
             try{
-                this.authService.signOutUser().then(authData => {
-                    console.log("Signend Out ");
-                    this._signedIn = false;
-                });
+                this.authService.signOutUser()
+                // .then(authData => {
+                //     console.log("Signend Out ");
+                //     this._signedIn = false;
+                // });
             } catch(e){
                 console.log("LogOut error: "+e);
             }

@@ -50,39 +50,35 @@ var AuthService = (function () {
     };
     AuthService.prototype.signInUser = function (user, password) {
         var _this = this;
-        return Observable_1.Observable.create(function (obs) {
+        var resp = Observable_1.Observable.create(function (obs) {
             firebase.auth().signInWithEmailAndPassword(user, password).then(function (data) {
                 if (data != null) {
                     _this._user.next(data);
                 }
             }, function (err) {
-                //console.log(err);//TODO - Remove
-                obs.throw(err);
+                console.log("setting behave error"); //TODO - Remove
+                obs.next(null);
             });
+        }, function (err) {
+            console.log(err); //TODO - Remove
         });
-        /*return Observable.create(obs => {
-            this.bugsDbRef.on('child_added', bug => {
-                const newBug = bug.val() as Bug;
-                newBug.id = bug.key;
-                obs.next(newBug);
-            },
-            err => {
-                obs.throw(err);
-            });
-        });*/
+        return resp;
     };
     AuthService.prototype.signOutUser = function () {
+        var _this = this;
         try {
-            console.log("in signOutUser"); //TODO Remove
+            console.log("in signOutUser:" + this._user); //TODO Remove
             var data = firebase.auth().signOut().then(function (data) {
                 var data2 = firebase.auth().currentUser;
-                console.log("data: " + data); //TODO - Remove
+                console.log("data1: " + data); //TODO - Remove
+                console.log("data2: " + data2); //TODO - Remove
+                _this._user.next(data);
                 if (data2 != null) {
                     console.log("data2: " + data2.email); //TODO - Remove
                 }
-                return data;
-            }).catch(function (err) {
-                console.log(err); //TODO - Remove
+                //return data;
+            }, function (err) {
+                console.log("LogOut serverice error: " + err); //TODO - Remove
             });
         }
         catch (e) {

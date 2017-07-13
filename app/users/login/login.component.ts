@@ -63,21 +63,15 @@ export class LoginComponent implements OnInit{
        try{
            this.authService.signInUser(email, password).subscribe(authData => {
                 console.log("logged in");
-                this._user = new User("uid", email, null, null, null, null);
-                //return true;
-                console.log("user logged in");
-            }, err => {
-                console.log("Problem logging in");
-            }), err =>{
-                console.log("Problem logging in2");
-            };
+                console.log(authData);
+                if(authData != null){
+                    this._user = authData;
+                } else{
+                    return false;
+                }
+            });
        } catch(e){
             console.log("Error: "+e);
-       } finally{
-           console.log("finaly ");
-           if(user == null){
-
-           }
        }
 
     }
